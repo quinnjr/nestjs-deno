@@ -1,0 +1,48 @@
+# @pegasus-heavy/nestjs-platform-deno
+
+> NestJS HTTP adapter for the Deno runtime using Deno.serve
+
+A NestJS HTTP adapter that lets you run NestJS applications directly on Deno's native HTTP server (`Deno.serve`) without requiring Express, Fastify, or any other Node.js HTTP framework. It serves as a drop-in replacement for `@nestjs/platform-express` and `@nestjs/platform-fastify`, bringing full NestJS compatibility to the Deno ecosystem with zero external HTTP framework dependencies.
+
+## Links
+
+- [Documentation](https://pegasusheavy.github.io/nestjs-deno/)
+- [GitHub Repository](https://github.com/pegasusheavy/nestjs-deno)
+- [JSR Package](https://jsr.io/@pegasus-heavy/nestjs-platform-deno)
+
+## Key Features
+
+- Native Deno HTTP server support via `Deno.serve`
+- Full NestJS compatibility (controllers, DI, guards, interceptors, pipes, exception filters)
+- Zero external HTTP framework dependencies
+- Built-in CORS support
+- Static file serving with configurable options
+- Express middleware compatibility (helmet, compression, morgan, etc.)
+- Fastify hooks and plugin compatibility (@fastify/cors, @fastify/helmet, etc.)
+- Custom error and 404 handler support
+- TypeScript first
+
+## Installation
+
+```bash
+# Using Deno
+deno add jsr:@pegasus-heavy/nestjs-platform-deno npm:@nestjs/common npm:@nestjs/core
+
+# Using npm/pnpm (for Node.js + Deno interop)
+pnpm add @pegasus-heavy/nestjs-platform-deno @nestjs/common @nestjs/core
+```
+
+## Quick Start
+
+```typescript
+import { NestFactory } from '@nestjs/core';
+import { DenoAdapter } from '@pegasus-heavy/nestjs-platform-deno';
+import { AppModule } from './app.module.ts';
+
+async function bootstrap() {
+  const app = await NestFactory.create(AppModule, new DenoAdapter());
+  await app.listen(3000);
+}
+
+bootstrap();
+```
